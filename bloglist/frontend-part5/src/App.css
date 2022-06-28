@@ -1,0 +1,23 @@
+/* input {
+  display: block;
+} */
+body {
+  margin: 1rem;
+  padding: 0;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  box-sizing: border-box;
+  background-color: #777;
+}
+
+.Notification {
+  border-style: solid;
+  width: 80vw;
+  padding-left: 2rem;
+}
+.error {
+  color: rgb(140, 0, 0);
+}
+.normal {
+  color: rgb(3, 58, 3);
+}
