@@ -7,6 +7,14 @@
     {
       "content": "the best featrure ever <3",
       "id": 2
+    },
+    {
+      "content": "ola",
+      "id": 3
+    },
+    {
+      "content": "test",
+      "id": 4
     }
   ],
   "persons": [
@@ -19,6 +27,16 @@
       "name": "kaltsoon",
       "number": "045-2323456",
       "id": 2
+    },
+    {
+      "name": "mick",
+      "number": "3432423",
+      "id": 3
+    },
+    {
+      "name": "pi",
+      "number": "32323",
+      "id": 4
     }
   ]
 }
