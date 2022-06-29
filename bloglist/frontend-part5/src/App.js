@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
-
+import { useDispatch } from "react-redux";
 import Notification from "./components/Notification";
 import loginService from "./services/login";
 import LoginForm from "./components/LoginForm";
 import Bloglist from "./components/Bloglist";
+import { setNotification } from "./reducers/notificationReducer";
 
 const App = () => {
-  const [notification, setNotification] = useState(null);
+  // const [notification, setNotification] = useState(null);
   const [user, setUser] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
@@ -22,27 +24,20 @@ const App = () => {
       setUser(userCred);
       await window.localStorage.setItem("loggedUser", JSON.stringify(userCred));
     } catch (exception) {
-      handleNotification(exception.response.data.error, "error");
+      dispatch(setNotification(exception.response.data.error, "error", 2));
     }
-  };
-
-  const handleNotification = (exception, type = "normal") => {
-    setNotification({ exception, type });
-    setTimeout(() => {
-      setNotification(null);
-    }, 3000);
   };
 
   return (
     <>
       <div>
         <h2>Log in to application</h2>
-        <Notification notification={notification} />
+        <Notification />
       </div>
       {!user ? (
         <LoginForm handleLogin={handleLogin} />
       ) : (
-        <Bloglist user={user} handleNotification={handleNotification} />
+        <Bloglist user={user} />
       )}
     </>
   );

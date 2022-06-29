@@ -3,10 +3,13 @@ import Blog from "./Blog";
 import blogService from "../services/blogs";
 import helperService from "../services/helper";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setNotification } from "../reducers/notificationReducer";
 
-const Bloglist = ({ user, handleNotification }) => {
+const Bloglist = ({ user }) => {
   const [newPost, setNewPost] = useState(false);
   const [blogs, setBlogs] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
@@ -65,14 +68,22 @@ const Bloglist = ({ user, handleNotification }) => {
       );
     } catch (exception) {
       exception.response.data.error
-        ? handleNotification(exception.response.data.error, "error")
-        : handleNotification(exception.response.statusText, "error");
+        ? dispatch(setNotification(exception.response.data.error, "error", 2))
+        : dispatch(setNotification(exception.response.statusText, "error", 2));
 
       return;
     }
 
     setBlogs(helperService.sortBlogs(blogs.concat(blogPost)));
-    await handleNotification(`${inputBlog.title} by ${inputBlog.author}`);
+    // await handleNotification(`${inputBlog.title} by ${inputBlog.author}`);
+    dispatch(
+      setNotification(
+        `Added ${inputBlog.title} by ${inputBlog.author}`,
+        "normal",
+        2
+      )
+    );
+
     setNewPost(false);
   };
 
