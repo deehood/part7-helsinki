@@ -3,21 +3,31 @@ import Blog from "./Blog";
 import blogService from "../services/blogs";
 import helperService from "../services/helper";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setNotification } from "../reducers/notificationReducer";
+import { getAllBlogs, refreshBlogs, setBlogs } from "../reducers/blogReducer";
 
 const Bloglist = ({ user }) => {
   const [newPost, setNewPost] = useState(false);
-  const [blogs, setBlogs] = useState([]);
   const dispatch = useDispatch();
+
+  const blogs = useSelector((state) => state.blogs);
+
+  // useEffect(() => {
+  //   const loggedUserJSON = window.localStorage.getItem("loggedUser");
+  //   if (loggedUserJSON) {
+  //     const loggedUser = JSON.parse(loggedUserJSON);
+  //     blogService
+  //       .getAll(loggedUser.token)
+  //       .then((data) => setBlogs(helperService.sortBlogs([...data])));
+  //   }
+  // }, []);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
     if (loggedUserJSON) {
       const loggedUser = JSON.parse(loggedUserJSON);
-      blogService
-        .getAll(loggedUser.token)
-        .then((data) => setBlogs(helperService.sortBlogs([...data])));
+      dispatch(getAllBlogs(loggedUser.token));
     }
   }, []);
 
@@ -33,7 +43,7 @@ const Bloglist = ({ user }) => {
       } catch (exception) {
         return;
       }
-      setBlogs(blogs.filter((x) => x.id !== blog.id));
+      dispatch(setBlogs(blogs.filter((x) => x.id !== blog.id)));
     }
   };
 
@@ -52,7 +62,7 @@ const Bloglist = ({ user }) => {
     const temp = [...blogs];
     const blogIndex = temp.findIndex((x) => x.id === blog.id);
     temp[blogIndex].likes = newBlog.likes;
-    setBlogs(helperService.sortBlogs([...temp]));
+    dispatch(refreshBlogs([...temp]));
   };
 
   const handleCreateBlog = async (e, inputBlog) => {
@@ -74,8 +84,7 @@ const Bloglist = ({ user }) => {
       return;
     }
 
-    setBlogs(helperService.sortBlogs(blogs.concat(blogPost)));
-    // await handleNotification(`${inputBlog.title} by ${inputBlog.author}`);
+    dispatch(setBlogs(helperService.sortBlogs(blogs.concat(blogPost))));
     dispatch(
       setNotification(
         `Added ${inputBlog.title} by ${inputBlog.author}`,
