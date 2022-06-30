@@ -5,23 +5,13 @@ import helperService from "../services/helper";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setNotification } from "../reducers/notificationReducer";
-import { getAllBlogs, refreshBlogs, setBlogs } from "../reducers/blogReducer";
+import { getAllBlogs, setBlogs, updateBlog } from "../reducers/blogReducer";
 
 const Bloglist = ({ user }) => {
   const [newPost, setNewPost] = useState(false);
   const dispatch = useDispatch();
 
   const blogs = useSelector((state) => state.blogs);
-
-  // useEffect(() => {
-  //   const loggedUserJSON = window.localStorage.getItem("loggedUser");
-  //   if (loggedUserJSON) {
-  //     const loggedUser = JSON.parse(loggedUserJSON);
-  //     blogService
-  //       .getAll(loggedUser.token)
-  //       .then((data) => setBlogs(helperService.sortBlogs([...data])));
-  //   }
-  // }, []);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
@@ -56,13 +46,16 @@ const Bloglist = ({ user }) => {
       url: blog.url,
     };
 
-    await blogService.updateBlog(blog.id, newBlog, token);
+    // await blogService.updateBlog(blog.id, newBlog, token);
 
-    // change the likes in blogs and sort
-    const temp = [...blogs];
-    const blogIndex = temp.findIndex((x) => x.id === blog.id);
-    temp[blogIndex].likes = newBlog.likes;
-    dispatch(refreshBlogs([...temp]));
+    dispatch(updateBlog(blogs, blog.id, newBlog, token));
+
+    //   // change the likes in blogs and sort
+    //   const temp = [...blogs];
+    //   const blogIndex = temp.findIndex((x) => x.id === blog.id);
+    //   temp[blogIndex].likes = newBlog.likes;
+    //   // dispatch(refreshBlogs([...temp]));
+    //   dispatch(refreshBlogs(temp));
   };
 
   const handleCreateBlog = async (e, inputBlog) => {
