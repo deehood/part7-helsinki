@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 import PropTypes from "prop-types";
 
-const Blog = ({ blog, username, token, handleLikes, handleRemoveBlog }) => {
+const Blog = ({ blog, handleLikes, handleRemoveBlog }) => {
   const [viewStatus, setViewStatus] = useState("view");
+
+  const user = useSelector((state) => state.user);
 
   const toggle = () =>
     viewStatus === "view" ? setViewStatus("hide") : setViewStatus("view");
@@ -27,16 +30,19 @@ const Blog = ({ blog, username, token, handleLikes, handleRemoveBlog }) => {
           {blog.url}
           <br />
           likes {blog.likes}{" "}
-          <button id="button-like" onClick={() => handleLikes(blog, token)}>
+          <button
+            id="button-like"
+            onClick={() => handleLikes(blog, user.token)}
+          >
             like
           </button>
           <br />
           {blog.user.name}
           <br />
-          {username === blog.user.username && (
+          {user.username === blog.user.username && (
             <button
               id="button-remove"
-              onClick={() => handleRemoveBlog(blog, token)}
+              onClick={() => handleRemoveBlog(blog, user.token)}
             >
               remove
             </button>
@@ -49,8 +55,6 @@ const Blog = ({ blog, username, token, handleLikes, handleRemoveBlog }) => {
 
 Blog.propTypes = {
   blog: PropTypes.object.isRequired,
-  username: PropTypes.string.isRequired,
-  token: PropTypes.string.isRequired,
   handleLikes: PropTypes.func.isRequired,
   handleRemoveBlog: PropTypes.func.isRequired,
 };

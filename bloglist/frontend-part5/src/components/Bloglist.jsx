@@ -1,17 +1,18 @@
 import FormInputBlog from "./FormInputBlog";
 import Blog from "./Blog";
 import blogService from "../services/blogs";
-import helperService from "../services/helper";
+// import helperService from "../services/helper";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setNotification } from "../reducers/notificationReducer";
 import { getAllBlogs, setBlogs, updateBlog } from "../reducers/blogReducer";
 
-const Bloglist = ({ user }) => {
+const Bloglist = () => {
   const [newPost, setNewPost] = useState(false);
   const dispatch = useDispatch();
 
   const blogs = useSelector((state) => state.blogs);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
@@ -46,16 +47,7 @@ const Bloglist = ({ user }) => {
       url: blog.url,
     };
 
-    // await blogService.updateBlog(blog.id, newBlog, token);
-
     dispatch(updateBlog(blogs, blog.id, newBlog, token));
-
-    //   // change the likes in blogs and sort
-    //   const temp = [...blogs];
-    //   const blogIndex = temp.findIndex((x) => x.id === blog.id);
-    //   temp[blogIndex].likes = newBlog.likes;
-    //   // dispatch(refreshBlogs([...temp]));
-    //   dispatch(refreshBlogs(temp));
   };
 
   const handleCreateBlog = async (e, inputBlog) => {
@@ -77,7 +69,7 @@ const Bloglist = ({ user }) => {
       return;
     }
 
-    dispatch(setBlogs(helperService.sortBlogs(blogs.concat(blogPost))));
+    dispatch(setBlogs(blogs.concat(blogPost)));
     dispatch(
       setNotification(
         `Added ${inputBlog.title} by ${inputBlog.author}`,
@@ -110,8 +102,6 @@ const Bloglist = ({ user }) => {
         <Blog
           key={blog.id}
           blog={blog}
-          username={user.username}
-          token={user.token}
           handleLikes={handleLikes}
           handleRemoveBlog={handleRemoveBlog}
         />
