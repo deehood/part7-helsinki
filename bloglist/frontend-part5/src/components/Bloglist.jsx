@@ -82,23 +82,24 @@ const Bloglist = () => {
 
   return (
     <div>
-      <nav className="nav">
-        <h2> Welcome to Blogs</h2>
+      <div className="grid">
+        <h2 className="title"> Welcome to Blogs</h2>
         <div className="logged">
           {user.name} logged in
           <button id="logoutButton" onClick={handleLogout}>
             logout
           </button>
         </div>
-      </nav>
-
-      <button
-        id="new-post"
-        className={newPost ? "hideButton" : "shoButton"}
-        onClick={() => setNewPost(true)}
-      >
-        new post
-      </button>
+        <button
+          id="new-post-button"
+          className={newPost ? "hideButton" : "shoButton"}
+          onClick={() => setNewPost(true)}
+        >
+          new post
+        </button>{" "}
+        {/* {//TODO users} */}
+        <div className="users">2 users</div>
+      </div>
       {newPost && (
         <FormInputBlog
           setNewPost={setNewPost}
@@ -107,7 +108,6 @@ const Bloglist = () => {
       )}
       <br />
       <br />
-
       {blogs.map((blog) => (
         <Blog
           key={blog.id}

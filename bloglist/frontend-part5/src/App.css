@@ -1,7 +1,8 @@
-/* input {
-  display: block;
-} */
+* {
+  margin: 0;
+}
 body {
+  margin: 0;
   margin: 1rem;
   padding: 0;
   margin-left: 1rem;
@@ -13,7 +14,18 @@ body {
 input {
   margin-left: 1rem;
 }
+.button-toggleView {
+  margin-left: 0.5rem;
+}
+.showButton {
+  visibility: visible;
+  margin-left: 5rem;
 
+  justify-content: left;
+}
+.hideButton {
+  visibility: hidden;
+}
 .Notification {
   border-style: solid;
   width: 80vw;
@@ -28,22 +40,37 @@ input {
   color: rgb(3, 58, 3);
 }
 
-.showButton {
-  margin-left: 5rem;
+.grid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 50% 50;
+  row-gap: 2rem;
+}
+
+.title {
+  align-self: flex-start;
+  justify-self: left;
+}
+#new-post-button {
+  justify-self: left;
+  align-self: flex-end;
+}
+
+.logged {
   display: flex;
-}
-.hideButton {
-  display: none;
-}
-.nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-#logoutButton {
-  margin-left: 1rem;
-}
-.button-toggleView {
+  flex-direction: column;
   overflow: hidden;
-  margin-left: 0.5rem;
+  justify-self: end;
+}
+
+#logoutButton {
+  margin-top: 0.2rem;
+
+  align-self: flex-end;
+  /* height: 25px;
+  flex-wrap: wrap; */
+}
+
+.users {
+  justify-self: right;
 }
