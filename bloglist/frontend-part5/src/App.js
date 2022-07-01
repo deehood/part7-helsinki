@@ -36,7 +36,7 @@ const App = () => {
   return (
     <>
       <div>
-        <h2>Log in to application</h2>
+        {!user && <h2>Log in to application</h2>}
         <Notification />
       </div>
       {!user ? <LoginForm handleLogin={handleLogin} /> : <Bloglist />}

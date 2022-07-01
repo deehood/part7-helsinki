@@ -10,14 +10,40 @@ body {
   background-color: #777;
 }
 
+input {
+  margin-left: 1rem;
+}
+
 .Notification {
   border-style: solid;
   width: 80vw;
   padding-left: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 .error {
   color: rgb(140, 0, 0);
 }
 .normal {
   color: rgb(3, 58, 3);
+}
+
+.showButton {
+  margin-left: 5rem;
+  display: flex;
+}
+.hideButton {
+  display: none;
+}
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#logoutButton {
+  margin-left: 1rem;
+}
+.button-toggleView {
+  overflow: hidden;
+  margin-left: 0.5rem;
 }

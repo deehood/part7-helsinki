@@ -1,7 +1,6 @@
 import FormInputBlog from "./FormInputBlog";
 import Blog from "./Blog";
 import blogService from "../services/blogs";
-// import helperService from "../services/helper";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setNotification } from "../reducers/notificationReducer";
@@ -83,11 +82,22 @@ const Bloglist = () => {
 
   return (
     <div>
-      <p>
-        {user.name} logged in <button onClick={handleLogout}>logout</button>
-      </p>
-      <button id="new-post" onClick={() => setNewPost(true)}>
-        new post{" "}
+      <nav className="nav">
+        <h2> Welcome to Blogs</h2>
+        <div className="logged">
+          {user.name} logged in
+          <button id="logoutButton" onClick={handleLogout}>
+            logout
+          </button>
+        </div>
+      </nav>
+
+      <button
+        id="new-post"
+        className={newPost ? "hideButton" : "shoButton"}
+        onClick={() => setNewPost(true)}
+      >
+        new post
       </button>
       {newPost && (
         <FormInputBlog

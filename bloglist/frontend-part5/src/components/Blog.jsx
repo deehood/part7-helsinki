@@ -12,8 +12,9 @@ const Blog = ({ blog, handleLikes, handleRemoveBlog }) => {
     viewStatus === "view" ? setViewStatus("hide") : setViewStatus("view");
 
   const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
+    overflow: "hidden",
+    padding: 5,
+    paddingRight: 10,
     border: "solid",
     borderWidth: 1,
     marginBottom: 5,
@@ -21,8 +22,9 @@ const Blog = ({ blog, handleLikes, handleRemoveBlog }) => {
 
   return (
     <div className="blogLine" style={blogStyle}>
-      {blog.title} - {blog.author}{" "}
-      <button id="button-toggleView" onClick={() => toggle(viewStatus)}>
+      {blog.title} - {blog.author}
+      {"  "}
+      <button className="button-toggleView" onClick={() => toggle(viewStatus)}>
         {viewStatus}
       </button>
       {viewStatus === "hide" && (
