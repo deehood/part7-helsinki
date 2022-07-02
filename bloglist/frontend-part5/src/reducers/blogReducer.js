@@ -27,6 +27,7 @@ export const setBlogs = (blogs) => {
 
 export const updateBlog = (blogs, id, newBlog, token) => {
   return async (dispatch) => {
+    console.log(id, newBlog);
     await blogService.updateBlog(id, newBlog, token);
 
     const newBlogs = blogs.map((blog) =>

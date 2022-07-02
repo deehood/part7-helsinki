@@ -8,8 +8,6 @@ import { setUser } from "./reducers/userReducer";
 import loginService from "./services/login";
 
 const App = () => {
-  // const [notification, setNotification] = useState(null);
-  // const [user, setUser] = useState(null);
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);

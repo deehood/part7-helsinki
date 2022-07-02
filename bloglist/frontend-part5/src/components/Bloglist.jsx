@@ -38,13 +38,7 @@ const Bloglist = () => {
   };
 
   const handleLikes = async (blog, token) => {
-    const newBlog = {
-      user: blog.user.id,
-      likes: blog.likes + 1,
-      author: blog.author,
-      title: blog.title,
-      url: blog.url,
-    };
+    const newBlog = { ...blog, user: blog.user.id, likes: blog.likes + 1 };
 
     dispatch(updateBlog(blogs, blog.id, newBlog, token));
   };
@@ -54,17 +48,11 @@ const Bloglist = () => {
     let blogPost = {};
     try {
       blogPost = await blogService.createBlog(inputBlog, user.token);
-
-      // put user object (with name) back in blog
-      blogPost.user = await blogService.getPosterNameById(
-        blogPost.id,
-        user.token
-      );
     } catch (exception) {
       exception.response.data.error
         ? dispatch(setNotification(exception.response.data.error, "error", 2))
         : dispatch(setNotification(exception.response.statusText, "error", 2));
-
+      // return so it doesn't continue executing
       return;
     }
 
