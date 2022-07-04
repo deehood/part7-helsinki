@@ -15,7 +15,7 @@ const Bloglist = () => {
   const [newPost, setNewPost] = useState(false);
   const dispatch = useDispatch();
 
-  const blogs = useSelector(setSelectorBlogs);
+  const blogs = useSelector(setSelectorBlogs());
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -25,11 +25,6 @@ const Bloglist = () => {
       dispatch(getAllBlogs(loggedUser.token));
     }
   }, []);
-
-  const handleLogout = () => {
-    window.localStorage.removeItem("loggedUser");
-    window.location.reload();
-  };
 
   const handleRemoveBlog = async (blog, token) => {
     if (window.confirm(`remove blog - ${blog.title} by ${blog.author}`)) {
@@ -75,24 +70,14 @@ const Bloglist = () => {
 
   return (
     <div>
-      <div className="grid">
-        <h2 className="title"> Welcome to Blogs</h2>
-        <div className="logged">
-          {user.name} logged in
-          <button id="logoutButton" onClick={handleLogout}>
-            logout
-          </button>
-        </div>
-        <button
-          id="new-post-button"
-          className={newPost ? "hideButton" : "shoButton"}
-          onClick={() => setNewPost(true)}
-        >
-          new post
-        </button>{" "}
-        {/* {//TODO users} */}
-        <div className="users">2 users</div>
-      </div>
+      <button
+        id="new-post-button"
+        className={newPost ? "hideButton" : "shoButton"}
+        onClick={() => setNewPost(true)}
+      >
+        new post
+      </button>
+
       {newPost && (
         <FormInputBlog
           setNewPost={setNewPost}

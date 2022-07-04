@@ -11,10 +11,6 @@ const blogSlice = createSlice({
     getOrderedBlogs(state, action) {
       return helperService.sortBlogs(action.payload);
     },
-    //in case i change blogs structure i only have to change selector here
-    setSelectorBlogs(state) {
-      return state.blogs;
-    },
   },
 });
 
@@ -24,7 +20,11 @@ export const getAllBlogs = (token) => {
     dispatch(getOrderedBlogs(blogs));
   };
 };
-// export const setSelectorBlogs = (state) => state.blogs;
+
+//in case i change blogs structure i only have to change selector here
+export const setSelectorBlogs = () => {
+  return (state) => state.blogs;
+};
 
 export const setBlogs = (blogs) => {
   return (dispatch) => dispatch(getOrderedBlogs(blogs));
@@ -32,7 +32,7 @@ export const setBlogs = (blogs) => {
 
 export const updateBlog = (blogs, id, newBlog, token) => {
   return async (dispatch) => {
-    console.log(id, newBlog);
+    // console.log(id, newBlog);
     await blogService.updateBlog(id, newBlog, token);
 
     const newBlogs = blogs.map((blog) =>
@@ -43,5 +43,5 @@ export const updateBlog = (blogs, id, newBlog, token) => {
   };
 };
 
-export const { getOrderedBlogs, setSelectorBlogs } = blogSlice.actions;
+export const { getOrderedBlogs } = blogSlice.actions;
 export default blogSlice.reducer;

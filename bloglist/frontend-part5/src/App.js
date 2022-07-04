@@ -7,7 +7,10 @@ import { setNotification } from "./reducers/notificationReducer";
 import { setUser } from "./reducers/userReducer";
 import loginService from "./services/login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import UserPage from "./components/UserPage";
+import UsersPage from "./components/UsersPage";
+import LoggedIn from "./components/loggedIn";
+import helperService from "./services/helper";
+
 const App = () => {
   const dispatch = useDispatch();
 
@@ -36,6 +39,7 @@ const App = () => {
     <Router>
       {!user && <h2>Log in to application</h2>}
       <Notification />
+      {user && <LoggedIn handleLogout={helperService.handleLogout} />}
       <Routes>
         <Route
           path="/"
@@ -43,7 +47,7 @@ const App = () => {
             !user ? <LoginForm handleLogin={handleLogin} /> : <Bloglist />
           }
         />
-        <Route path="/users" element={<UserPage />} />
+        <Route path="/users" element={<UsersPage />} />
       </Routes>
     </Router>
   );
