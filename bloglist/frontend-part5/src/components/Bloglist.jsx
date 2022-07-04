@@ -4,13 +4,18 @@ import blogService from "../services/blogs";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setNotification } from "../reducers/notificationReducer";
-import { getAllBlogs, setBlogs, updateBlog } from "../reducers/blogReducer";
+import {
+  getAllBlogs,
+  setBlogs,
+  updateBlog,
+  setSelectorBlogs,
+} from "../reducers/blogReducer";
 
 const Bloglist = () => {
   const [newPost, setNewPost] = useState(false);
   const dispatch = useDispatch();
 
-  const blogs = useSelector((state) => state.blogs);
+  const blogs = useSelector(setSelectorBlogs);
   const user = useSelector((state) => state.user);
 
   useEffect(() => {

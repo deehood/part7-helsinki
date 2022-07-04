@@ -6,7 +6,8 @@ import Bloglist from "./components/Bloglist";
 import { setNotification } from "./reducers/notificationReducer";
 import { setUser } from "./reducers/userReducer";
 import loginService from "./services/login";
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import UserPage from "./components/UserPage";
 const App = () => {
   const dispatch = useDispatch();
 
@@ -32,13 +33,19 @@ const App = () => {
   };
 
   return (
-    <>
-      <div>
-        {!user && <h2>Log in to application</h2>}
-        <Notification />
-      </div>
-      {!user ? <LoginForm handleLogin={handleLogin} /> : <Bloglist />}
-    </>
+    <Router>
+      {!user && <h2>Log in to application</h2>}
+      <Notification />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            !user ? <LoginForm handleLogin={handleLogin} /> : <Bloglist />
+          }
+        />
+        <Route path="/users" element={<UserPage />} />
+      </Routes>
+    </Router>
   );
 };
 
