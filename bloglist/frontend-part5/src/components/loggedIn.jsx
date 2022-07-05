@@ -22,7 +22,6 @@ const LoggedIn = ({ handleLogout }) => {
         </button>
       </span>
 
-      {/* {//TODO users} */}
       <div className="users">{users && users.length} users</div>
     </div>
   );
