@@ -1,6 +1,17 @@
 import { useSelector } from "react-redux";
+import userService from "../services/users";
+import { useState, useEffect } from "react";
+
 const LoggedIn = ({ handleLogout }) => {
   const user = useSelector((state) => state.user);
+  const [users, setUsers] = useState(null);
+
+  useEffect(() => {
+    const getData = async () => {
+      setUsers(await userService.getAll());
+    };
+    getData();
+  }, []);
   return (
     <div className="loggedGridContainer">
       <h2 className="title"> Welcome to Blogs</h2>
@@ -12,7 +23,7 @@ const LoggedIn = ({ handleLogout }) => {
       </span>
 
       {/* {//TODO users} */}
-      <div className="users">2 users</div>
+      <div className="users">{users && users.length} users</div>
     </div>
   );
 };

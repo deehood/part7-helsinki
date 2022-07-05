@@ -34,7 +34,7 @@ const Bloglist = () => {
     <div>
       <button
         id="new-post-button"
-        className={newPost ? "hideButton" : "shoButton"}
+        className={newPost ? "hideButton" : "showButton"}
         onClick={() => setNewPost(true)}
       >
         new post
@@ -46,8 +46,7 @@ const Bloglist = () => {
           handleCreateBlog={handleCreateBlog}
         />
       )}
-      <br />
-      <br />
+
       {blogs.map((blog) => (
         <Blog key={blog.id} blog={blog} />
       ))}

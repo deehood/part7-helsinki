@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
 }
+
 body {
   margin: 1rem;
 
@@ -20,13 +21,11 @@ input {
   margin-left: 0.5rem;
 }
 .showButton {
-  visibility: visible;
-  margin-left: 5rem;
-
-  justify-content: left;
+  display: block;
+  margin-bottom: 1rem;
 }
 .hideButton {
-  visibility: hidden;
+  display: none;
 }
 .Notification {
   border-style: solid;
@@ -45,11 +44,14 @@ input {
 .title {
   grid-area: title;
   justify-self: flex-start;
+  align-self: center;
+
   margin-right: 0.5rem;
 }
 .logged {
   display: flex;
   justify-self: flex-end;
+  align-self: center;
   grid-area: logged;
 }
 .loggedUser {
@@ -66,14 +68,25 @@ input {
 }
 .loggedGridContainer {
   margin-bottom: 1rem;
+  padding-bottom: 0.3rem;
   display: grid;
   border-bottom: solid black;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
 
-  justify-self: flex-end;
-
   grid-template-areas:
     "title logged"
     ". users";
+}
+
+.createNewBlog {
+  margin-bottom: 1rem;
+}
+
+.userTitle {
+  font-size: 15pt;
+  margin-right: 6rem;
+}
+.userName {
+  margin-right: 6rem;
 }

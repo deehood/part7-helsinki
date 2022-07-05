@@ -8,8 +8,8 @@ const FormInputBlog = ({ setNewPost, handleCreateBlog }) => {
   });
 
   return (
-    <>
-      <h3>Create new</h3>
+    <div className="createNewBlog">
+      <h3>Create new Blog</h3>
       <form onSubmit={(e) => handleCreateBlog(e, inputBlog)}>
         title:
         <input
@@ -57,7 +57,7 @@ const FormInputBlog = ({ setNewPost, handleCreateBlog }) => {
           cancel
         </button>
       </form>
-    </>
+    </div>
   );
 };
 
