@@ -9,9 +9,9 @@ const blogSlice = createSlice({
   name: "blogs",
   initialState,
   reducers: {
+    // can be refactored to sort by field
     getOrderedBlogs(state, action) {
-      console.log(action.payload);
-      const sorted = action.payload.sort((a, b) => b.likes - a.likes);
+      const sorted = [...action.payload].sort((a, b) => b.likes - a.likes);
       return sorted;
     },
     deleteBlogFromState(state, action) {
@@ -52,12 +52,10 @@ export const deleteBlog = (id, token) => {
 
 export const createBlog = (blog, token) => {
   return async (dispatch) => {
-    let newBlog = {};
-
-    console.log(blog);
+    let blogToAppend = {};
 
     try {
-      newBlog = await blogService.createBlog(blog, token);
+      blogToAppend = await blogService.createBlog(blog, token);
     } catch (exception) {
       exception.response.data.error
         ? dispatch(setNotification(exception.response.data.error, "error", 2))
@@ -65,10 +63,6 @@ export const createBlog = (blog, token) => {
       // return so it doesn't continue executing
       return;
     }
-
-    // insert user object {name,username,id} into blog
-    const userObj = await blogService.getUserById(newBlog.id, token);
-    const blogToAppend = { ...newBlog, user: userObj };
 
     dispatch(appendBlog(blogToAppend));
     dispatch(

@@ -14,9 +14,9 @@ const Blog = ({ blog }) => {
   };
 
   const handleRemoveBlog = () => {
-    // if (window.confirm(`remove blog - ${blog.title} by ${blog.author}`)) {
-    dispatch(deleteBlog(blog.id, user.token));
-    // }
+    if (window.confirm(`remove blog - ${blog.title} by ${blog.author}`)) {
+      dispatch(deleteBlog(blog.id, user.token));
+    }
   };
 
   const toggle = () =>

@@ -5,7 +5,7 @@ const User = require("../models/user");
 
 blogRouter.get("/", async (request, response) => {
   //express-async-errors is taking care of try catch
-  const blogs = await Blog.find({}).find({}).populate("user", {
+  const blogs = await Blog.find({}).populate("user", {
     username: 1,
     name: 1,
   });
@@ -46,32 +46,37 @@ blogRouter.delete("/:id", async (request, response) => {
 });
 
 blogRouter.put("/:id", async (request, response) => {
-  const result = await Blog.findById(request.params.id);
+  const result = await Blog.findById(request.params.id).populate("user", {
+    username: 1,
+    name: 1,
+  });
   result.likes++;
 
-  const updatedBlog = await Blog(result);
-  await updatedBlog.save();
-  response.json(updatedBlog);
+  await result.save();
+  response.json(result);
 });
 
 blogRouter.post("/", async (request, response) => {
   const user = request.user;
-  const blog = await Blog({ ...request.body, user: user.id });
-
-  const blogJson = await blog.toJSON();
-  // defaults to 0 if not present
-  if (!("likes" in blogJson)) blog["likes"] = 0;
+  const blog = await Blog({
+    ...request.body,
+    user: user.id,
+    likes: 0,
+  }).populate("user", {
+    username: 1,
+    name: 1,
+  });
 
   // sends 400 status if both url and title not present
 
-  if (!blogJson.title && !blogJson.url) {
+  if (!blog.title && !blog.url) {
     response.status(400).end();
     return;
   }
 
   // Save user id in blog db
   // let user = await User.findById(decodedToken.id);
-  user && (blog.user = user._id);
+  // user && (blog.user = user._id);
   await blog.save();
 
   // save blog id in user db

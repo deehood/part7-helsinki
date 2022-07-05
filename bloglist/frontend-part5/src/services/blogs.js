@@ -16,7 +16,6 @@ const getAll = async (token) => {
 };
 
 const createBlog = async (blog, token) => {
-  console.log(blog);
   const response = await axios.post(baseUrl, blog, {
     headers: { Authorization: `Bearer ${token}` },
   });
