@@ -23,14 +23,6 @@ const createBlog = async (blog, token) => {
   return response.data;
 };
 
-const getUserById = async (blogId, token) => {
-  const response = await axios.get(`${baseUrl}/${blogId}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
-  return response.data.user;
-};
-
 const updateBlog = async (blog, token) => {
   const response = await axios.put(
     `${baseUrl}/${blog.id}`,
@@ -50,7 +42,6 @@ const removeBlog = async (id, token) => {
 export default {
   getAll,
   createBlog,
-  getUserById,
   updateBlog,
   removeBlog,
 };

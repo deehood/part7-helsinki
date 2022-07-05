@@ -88,8 +88,11 @@ input {
   margin-right: 6rem;
   font-weight: 600;
 }
+.lineWrap {
+  display: flex;
+}
 a {
-  margin-right: 6rem;
+  width: 12rem;
   text-decoration: none;
-  color: rgb(65, 75, 165);
+  color: rgb(26, 30, 69);
 }

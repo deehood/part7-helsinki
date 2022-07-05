@@ -7,8 +7,9 @@ import { setNotification } from "./reducers/notificationReducer";
 import { setUser } from "./reducers/userReducer";
 import loginService from "./services/login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import UsersPage from "./components/UsersPage";
 import LoggedIn from "./components/loggedIn";
+import UsersPage from "./components/AllUsersPage";
+import UserPage from "./components/UserPage";
 import helperService from "./services/helper";
 
 const App = () => {
@@ -48,6 +49,7 @@ const App = () => {
           }
         />
         <Route path="/users" element={<UsersPage />} />
+        <Route path="/users/:id" element={<UserPage />} />
       </Routes>
     </Router>
   );
