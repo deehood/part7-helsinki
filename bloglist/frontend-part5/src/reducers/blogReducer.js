@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+// import blog from "../../../backend-part5/models/blog";
 import blogService from "../services/blogs";
-import helperService from "../services/helper";
+import { setNotification } from "./notificationReducer";
 
 const initialState = [];
 
@@ -9,10 +10,27 @@ const blogSlice = createSlice({
   initialState,
   reducers: {
     getOrderedBlogs(state, action) {
-      return helperService.sortBlogs(action.payload);
+      console.log(action.payload);
+      const sorted = action.payload.sort((a, b) => b.likes - a.likes);
+      return sorted;
+    },
+    deleteBlogFromState(state, action) {
+      return state.filter((blog) => blog.id !== action.payload);
+    },
+    appendBlog(state, action) {
+      return state.concat(action.payload);
+    },
+    updateBlog(state, action) {
+      const newBlog = action.payload;
+      return state.map((blog) => (blog.id === newBlog.id ? newBlog : blog));
     },
   },
 });
+
+//in case i change blogs structure i only have to change selector here
+export const setSelectorBlogs = () => {
+  return (state) => state.blogs;
+};
 
 export const getAllBlogs = (token) => {
   return async (dispatch) => {
@@ -21,27 +39,55 @@ export const getAllBlogs = (token) => {
   };
 };
 
-//in case i change blogs structure i only have to change selector here
-export const setSelectorBlogs = () => {
-  return (state) => state.blogs;
-};
-
-export const setBlogs = (blogs) => {
-  return (dispatch) => dispatch(getOrderedBlogs(blogs));
-};
-
-export const updateBlog = (blogs, id, newBlog, token) => {
+export const deleteBlog = (id, token) => {
   return async (dispatch) => {
-    // console.log(id, newBlog);
-    await blogService.updateBlog(id, newBlog, token);
-
-    const newBlogs = blogs.map((blog) =>
-      blog.id === id ? { ...blog, likes: blog.likes + 1 } : blog
-    );
-
-    dispatch(getOrderedBlogs(newBlogs));
+    try {
+      await blogService.removeBlog(id, token);
+    } catch (exception) {
+      return;
+    }
+    dispatch(deleteBlogFromState(id));
   };
 };
 
-export const { getOrderedBlogs } = blogSlice.actions;
+export const createBlog = (blog, token) => {
+  return async (dispatch) => {
+    let newBlog = {};
+
+    console.log(blog);
+
+    try {
+      newBlog = await blogService.createBlog(blog, token);
+    } catch (exception) {
+      exception.response.data.error
+        ? dispatch(setNotification(exception.response.data.error, "error", 2))
+        : dispatch(setNotification(exception.response.statusText, "error", 2));
+      // return so it doesn't continue executing
+      return;
+    }
+
+    // insert user object {name,username,id} into blog
+    const userObj = await blogService.getUserById(newBlog.id, token);
+    const blogToAppend = { ...newBlog, user: userObj };
+
+    dispatch(appendBlog(blogToAppend));
+    dispatch(
+      setNotification(`Added ${blog.title} by ${blog.author}`, "normal", 2)
+    );
+  };
+};
+
+export const incrementLikes = (blog, token) => {
+  return async (dispatch, getState) => {
+    const newBlog = await blogService.updateBlog(blog, token);
+    await dispatch(updateBlog(newBlog));
+
+    const blogs = getState().blogs;
+
+    await dispatch(getOrderedBlogs(blogs));
+  };
+};
+
+export const { getOrderedBlogs, deleteBlogFromState, appendBlog, updateBlog } =
+  blogSlice.actions;
 export default blogSlice.reducer;

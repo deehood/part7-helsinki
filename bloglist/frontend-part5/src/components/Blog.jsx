@@ -1,12 +1,23 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import { incrementLikes, deleteBlog } from "../reducers/blogReducer";
 
-const Blog = ({ blog, handleLikes, handleRemoveBlog }) => {
+const Blog = ({ blog }) => {
   const [viewStatus, setViewStatus] = useState("view");
-
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const handleLikes = () => {
+    dispatch(incrementLikes(blog, user.token));
+  };
+
+  const handleRemoveBlog = () => {
+    // if (window.confirm(`remove blog - ${blog.title} by ${blog.author}`)) {
+    dispatch(deleteBlog(blog.id, user.token));
+    // }
+  };
 
   const toggle = () =>
     viewStatus === "view" ? setViewStatus("hide") : setViewStatus("view");
@@ -23,7 +34,6 @@ const Blog = ({ blog, handleLikes, handleRemoveBlog }) => {
   return (
     <div className="blogLine" style={blogStyle}>
       {blog.title} - {blog.author}
-      {"  "}
       <button className="button-toggleView" onClick={() => toggle(viewStatus)}>
         {viewStatus}
       </button>
@@ -32,20 +42,14 @@ const Blog = ({ blog, handleLikes, handleRemoveBlog }) => {
           {blog.url}
           <br />
           likes {blog.likes}{" "}
-          <button
-            id="button-like"
-            onClick={() => handleLikes(blog, user.token)}
-          >
+          <button id="button-like" onClick={handleLikes}>
             like
           </button>
           <br />
           {blog.user.name}
           <br />
           {user.username === blog.user.username && (
-            <button
-              id="button-remove"
-              onClick={() => handleRemoveBlog(blog, user.token)}
-            >
+            <button id="button-remove" onClick={handleRemoveBlog}>
               remove
             </button>
           )}
@@ -57,8 +61,6 @@ const Blog = ({ blog, handleLikes, handleRemoveBlog }) => {
 
 Blog.propTypes = {
   blog: PropTypes.object.isRequired,
-  handleLikes: PropTypes.func.isRequired,
-  handleRemoveBlog: PropTypes.func.isRequired,
 };
 
 export default Blog;

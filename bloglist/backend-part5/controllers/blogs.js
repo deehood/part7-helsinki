@@ -5,7 +5,7 @@ const User = require("../models/user");
 
 blogRouter.get("/", async (request, response) => {
   //express-async-errors is taking care of try catch
-  const blogs = await Blog.find({}).populate("user", {
+  const blogs = await Blog.find({}).find({}).populate("user", {
     username: 1,
     name: 1,
   });
@@ -46,18 +46,18 @@ blogRouter.delete("/:id", async (request, response) => {
 });
 
 blogRouter.put("/:id", async (request, response) => {
-  const updatedBlog = request.body;
+  const result = await Blog.findById(request.params.id);
+  result.likes++;
 
-  const result = await Blog.findByIdAndUpdate(request.params.id, updatedBlog, {
-    new: true,
-  });
-  response.status(204).send(result);
+  const updatedBlog = await Blog(result);
+  await updatedBlog.save();
+  response.json(updatedBlog);
 });
 
 blogRouter.post("/", async (request, response) => {
   const user = request.user;
+  const blog = await Blog({ ...request.body, user: user.id });
 
-  const blog = await Blog(request.body);
   const blogJson = await blog.toJSON();
   // defaults to 0 if not present
   if (!("likes" in blogJson)) blog["likes"] = 0;
