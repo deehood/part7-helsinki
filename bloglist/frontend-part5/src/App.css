@@ -60,7 +60,11 @@ input {
 #logoutButton {
   height: fit-content;
 }
-
+.main {
+  grid-area: main;
+  justify-self: flex-start;
+  align-self: flex-end;
+}
 .users {
   justify-self: flex-end;
   align-self: flex-end;
@@ -76,7 +80,7 @@ input {
 
   grid-template-areas:
     "title logged"
-    ". users";
+    "main users";
 }
 
 .createNewBlog {

@@ -35,7 +35,8 @@ const BlogPage = () => {
             </button>
           </p>
           <p>
-            added by <Link to={""}> {blog.user.name}</Link>
+            added by{" "}
+            <Link to={`/users/${blog.user.id}`}> {blog.user.name}</Link>
           </p>
         </div>
       )}

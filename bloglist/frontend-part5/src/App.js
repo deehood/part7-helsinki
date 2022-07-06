@@ -11,7 +11,6 @@ import LoggedIn from "./components/loggedIn";
 import AllUsersPage from "./components/AllUsersPage";
 import UserPage from "./components/UserPage";
 import BlogPage from "./components/BlogPage";
-import helperService from "./services/helper";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -41,7 +40,7 @@ const App = () => {
     <Router>
       {!user && <h2>Log in to application</h2>}
       <Notification />
-      {user && <LoggedIn handleLogout={helperService.handleLogout} />}
+      {user && <LoggedIn />}
       <Routes>
         <Route
           path="/"
