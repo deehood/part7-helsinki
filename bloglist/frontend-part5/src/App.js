@@ -11,17 +11,25 @@ import LoggedIn from "./components/loggedIn";
 import AllUsersPage from "./components/AllUsersPage";
 import UserPage from "./components/UserPage";
 import BlogPage from "./components/BlogPage";
+import { getAllBlogs } from "./reducers/blogReducer";
+import { getAllUsers } from "./reducers/allUsersReducer";
 
 const App = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
+  const users = useSelector((state) => state.allUsers);
+  const blogs = useSelector((state) => state.blogs);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
     if (loggedUserJSON) {
       dispatch(setUser(JSON.parse(loggedUserJSON)));
+      const loggedUser = JSON.parse(loggedUserJSON);
+      (!users || users === 0) && dispatch(getAllUsers(loggedUser.token));
+      (!blogs || blogs === 0) && dispatch(getAllBlogs(loggedUser.token));
     }
+    console.log("run app");
   }, []);
 
   const handleLogin = async ({ username, password }) => {

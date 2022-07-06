@@ -8,6 +8,7 @@ const AllUsersPage = () => {
     <div className="usersGrid">
       <span className="userTitle">Users</span>
       <span className="title2">Blogs created</span>
+
       {users &&
         users.map((user) => (
           <div key={user.id} className="lineWrap">

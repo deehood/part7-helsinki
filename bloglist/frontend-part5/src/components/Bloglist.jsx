@@ -7,7 +7,7 @@ import {
   createBlog,
   setSelectorBlogs,
 } from "../reducers/blogReducer";
-import { getAllUsers } from "../reducers/allUsersReducer";
+import { setUser } from "../reducers/userReducer";
 
 const Bloglist = () => {
   const [newPost, setNewPost] = useState(false);
@@ -20,15 +20,14 @@ const Bloglist = () => {
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
     if (loggedUserJSON) {
       const loggedUser = JSON.parse(loggedUserJSON);
-      dispatch(getAllBlogs(loggedUser.token));
-      dispatch(getAllUsers(loggedUser.token));
+      dispatch(setUser(JSON.parse(loggedUserJSON)));
+      (!blogs || blogs.length === 0) && dispatch(getAllBlogs(loggedUser.token));
     }
   }, []);
 
   const handleCreateBlog = async (e, inputBlog) => {
     e.preventDefault();
     dispatch(createBlog(inputBlog, user.token));
-
     setNewPost(false);
   };
 

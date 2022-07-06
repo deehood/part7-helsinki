@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 // import blog from "../../../backend-part5/models/blog";
 import blogService from "../services/blogs";
 import { setNotification } from "./notificationReducer";
+import { getAllUsers } from "./allUsersReducer";
 
 const initialState = [];
 
@@ -47,6 +48,9 @@ export const deleteBlog = (id, token) => {
       return;
     }
     dispatch(deleteBlogFromState(id));
+
+    // AllUsers have the blogs array so thy must update too
+    dispatch(getAllUsers());
   };
 };
 
@@ -63,8 +67,10 @@ export const createBlog = (blog, token) => {
       // return so it doesn't continue executing
       return;
     }
-
     dispatch(appendBlog(blogToAppend));
+    // AllUsers have the blogs array so thy must update too
+    dispatch(getAllUsers());
+
     dispatch(
       setNotification(`Added ${blog.title} by ${blog.author}`, "normal", 2)
     );
@@ -75,10 +81,9 @@ export const incrementLikes = (blog, token) => {
   return async (dispatch, getState) => {
     const newBlog = await blogService.updateBlog(blog, token);
     await dispatch(updateBlog(newBlog));
-
+    // order blogs by likes
     const blogs = getState().blogs;
-
-    await dispatch(getOrderedBlogs(blogs));
+    dispatch(getOrderedBlogs(blogs));
   };
 };
 
