@@ -1,14 +1,16 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { getAllUsers } from "../reducers/allUsersReducer";
 
-const handleLogout = () => {
+const handleLogout = (navigate) => {
+  navigate("/");
   window.localStorage.removeItem("loggedUser");
   window.location.reload();
 };
 
 const LoggedIn = () => {
+  const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const users = useSelector((state) => state.allUsers);
 
@@ -29,7 +31,7 @@ const LoggedIn = () => {
         <div className="loggedUser">
           <Link to={`/users/${user.id}`}> {user.name}</Link> is logged in{" "}
         </div>
-        <button id="logoutButton" onClick={handleLogout}>
+        <button id="logoutButton" onClick={() => handleLogout(navigate)}>
           logout
         </button>
       </span>

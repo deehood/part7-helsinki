@@ -29,7 +29,6 @@ const App = () => {
       (!users || users === 0) && dispatch(getAllUsers(loggedUser.token));
       (!blogs || blogs === 0) && dispatch(getAllBlogs(loggedUser.token));
     }
-    console.log("run app");
   }, []);
 
   const handleLogin = async ({ username, password }) => {
