@@ -1,15 +1,9 @@
-import { useEffect, useState } from "react";
-import userService from "../services/users";
 import { Link } from "react-router-dom";
-const AllUsersPage = () => {
-  const [users, setUsers] = useState(null);
+import { useSelector } from "react-redux";
 
-  useEffect(() => {
-    const getData = async () => {
-      setUsers(await userService.getAll());
-    };
-    getData();
-  }, []);
+const AllUsersPage = () => {
+  const users = useSelector((state) => state.allUsers);
+
   return (
     <div className="usersGrid">
       <span className="userTitle">Users</span>

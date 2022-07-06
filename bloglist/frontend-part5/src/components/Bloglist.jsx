@@ -7,6 +7,7 @@ import {
   createBlog,
   setSelectorBlogs,
 } from "../reducers/blogReducer";
+import { getAllUsers } from "../reducers/allUsersReducer";
 
 const Bloglist = () => {
   const [newPost, setNewPost] = useState(false);
@@ -20,6 +21,7 @@ const Bloglist = () => {
     if (loggedUserJSON) {
       const loggedUser = JSON.parse(loggedUserJSON);
       dispatch(getAllBlogs(loggedUser.token));
+      dispatch(getAllUsers(loggedUser.token));
     }
   }, []);
 

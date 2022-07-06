@@ -10,7 +10,7 @@ const handleLogout = () => {
 
 const LoggedIn = () => {
   const user = useSelector((state) => state.user);
-  console.log(user);
+
   const [users, setUsers] = useState(null);
 
   useEffect(() => {
