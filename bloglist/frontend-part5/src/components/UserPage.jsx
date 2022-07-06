@@ -2,8 +2,8 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import userService from "../services/users";
 import { useState, useEffect } from "react";
-
-const User = () => {
+import { Link } from "react-router-dom";
+const UserPage = () => {
   const token = useSelector((state) => state.user.token);
   const { id } = useParams();
   const [user, setUser] = useState(null);
@@ -25,7 +25,7 @@ const User = () => {
         {user &&
           user.blogs.map((blog) => (
             <li key={blog.id} style={{ marginLeft: "1rem" }}>
-              {blog.title}
+              <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
             </li>
           ))}
       </ul>
@@ -33,4 +33,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default UserPage;

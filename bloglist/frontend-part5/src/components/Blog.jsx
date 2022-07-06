@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { incrementLikes, deleteBlog } from "../reducers/blogReducer";
-
+import { Link } from "react-router-dom";
 const Blog = ({ blog }) => {
   const [viewStatus, setViewStatus] = useState("view");
   const user = useSelector((state) => state.user);
@@ -33,7 +33,9 @@ const Blog = ({ blog }) => {
 
   return (
     <div className="blogLine" style={blogStyle}>
-      {blog.title} - {blog.author}
+      <Link to={`/blogs/${blog.id}`}>
+        {blog.title} - {blog.author}
+      </Link>
       <button className="button-toggleView" onClick={() => toggle(viewStatus)}>
         {viewStatus}
       </button>

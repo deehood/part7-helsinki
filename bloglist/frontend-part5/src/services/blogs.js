@@ -15,6 +15,12 @@ const getAll = async (token) => {
   return response.data;
 };
 
+const getBlogById = async (blogId, token) => {
+  const response = await axios.get(`${baseUrl}/${blogId}`, config(token));
+
+  return response.data;
+};
+
 const createBlog = async (blog, token) => {
   const response = await axios.post(baseUrl, blog, {
     headers: { Authorization: `Bearer ${token}` },
@@ -41,6 +47,7 @@ const removeBlog = async (id, token) => {
 
 export default {
   getAll,
+  getBlogById,
   createBlog,
   updateBlog,
   removeBlog,

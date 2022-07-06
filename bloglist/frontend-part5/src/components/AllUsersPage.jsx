@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import userService from "../services/users";
 import { Link } from "react-router-dom";
-const UsersPage = () => {
+const AllUsersPage = () => {
   const [users, setUsers] = useState(null);
 
   useEffect(() => {
@@ -27,4 +27,4 @@ const UsersPage = () => {
   );
 };
 
-export default UsersPage;
+export default AllUsersPage;

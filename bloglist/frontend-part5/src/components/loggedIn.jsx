@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import userService from "../services/users";
 import { useState, useEffect } from "react";
-
+import { Link } from "react-router-dom";
 const LoggedIn = ({ handleLogout }) => {
   const user = useSelector((state) => state.user);
   const [users, setUsers] = useState(null);
@@ -22,7 +22,9 @@ const LoggedIn = ({ handleLogout }) => {
         </button>
       </span>
 
-      <div className="users">{users && users.length} users</div>
+      <div className="users">
+        <Link to="/users">{users && users.length} users</Link>
+      </div>
     </div>
   );
 };

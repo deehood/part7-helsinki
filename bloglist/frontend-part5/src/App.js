@@ -8,8 +8,9 @@ import { setUser } from "./reducers/userReducer";
 import loginService from "./services/login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoggedIn from "./components/loggedIn";
-import UsersPage from "./components/AllUsersPage";
+import AllUsersPage from "./components/AllUsersPage";
 import UserPage from "./components/UserPage";
+import BlogPage from "./components/BlogPage";
 import helperService from "./services/helper";
 
 const App = () => {
@@ -48,8 +49,9 @@ const App = () => {
             !user ? <LoginForm handleLogin={handleLogin} /> : <Bloglist />
           }
         />
-        <Route path="/users" element={<UsersPage />} />
+        <Route path="/users" element={<AllUsersPage />} />
         <Route path="/users/:id" element={<UserPage />} />
+        <Route path="/blogs/:id" element={<BlogPage />} />
       </Routes>
     </Router>
   );

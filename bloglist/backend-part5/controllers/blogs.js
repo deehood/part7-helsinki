@@ -13,11 +13,11 @@ blogRouter.get("/", async (request, response) => {
 });
 
 blogRouter.get("/:id", async (request, response) => {
-  const blogs = await Blog.findById(request.params.id).populate("user", {
+  const blog = await Blog.findById(request.params.id).populate("user", {
     username: 1,
     name: 1,
   });
-  response.json(blogs);
+  response.json(blog);
 });
 
 blogRouter.delete("/:id", async (request, response) => {

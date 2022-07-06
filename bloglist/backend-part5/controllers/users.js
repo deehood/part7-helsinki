@@ -3,13 +3,9 @@ const userRouter = require("express").Router();
 const User = require("../models/user");
 const Blog = require("../models/blog");
 
-const getBlogs = async () => {
-  const blog = await Blog.find({});
-  return blog;
-};
-
 userRouter.get("/", async (request, response) => {
   const users = await User.find({}).populate("blogs", {
+    title: 1,
     author: 1,
     url: 1,
     likes: 1,
@@ -19,13 +15,13 @@ userRouter.get("/", async (request, response) => {
 });
 
 userRouter.get("/:id", async (request, response) => {
-  const users = await User.findById(request.params.id).populate("blogs", {
+  const user = await User.findById(request.params.id).populate("blogs", {
     title: 1,
     author: 1,
     url: 1,
     likes: 1,
   });
-  response.json(users);
+  response.json(user);
 });
 
 userRouter.post("/", async (request, response) => {
@@ -46,12 +42,17 @@ userRouter.post("/", async (request, response) => {
   const users = await User.find({ username });
 
   if (users.length > 0) {
-    response.status(403).send("Username already existes");
+    response.status(403).send("Username already exists");
     return;
   }
 
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(password, saltRounds);
+
+  const getBlogs = async () => {
+    const blogs = await Blog.find({});
+    return blogs;
+  };
 
   let blogs = await getBlogs();
 
