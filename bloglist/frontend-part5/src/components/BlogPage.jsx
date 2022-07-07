@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { getAllBlogs } from "../reducers/blogReducer";
 
 const BlogPage = () => {
+  // const navigate = useNavigate;
   const token = useSelector((state) => state.user.token);
   const { id } = useParams();
   const blogs = useSelector(setSelectorBlogs());
@@ -31,9 +32,10 @@ const BlogPage = () => {
           blog.id === id ? (
             <div key={blog.id}>
               <h2> {blog.title}</h2>
-              <Link to={""}>{blog.url}</Link>
+              <a href={`${blog.url}`} target="_blank" rel="noreferrer">
+                {blog.url}
+              </a>
               <p>
-                {" "}
                 {blog.likes} likes{" "}
                 <button id="button-like" onClick={handleLikes}>
                   like
@@ -43,6 +45,13 @@ const BlogPage = () => {
                 added by{" "}
                 <Link to={`/users/${blog.user.id}`}> {blog.user.name}</Link>
               </p>
+              <h3>Comments</h3>
+              <ul>
+                {blog.comments &&
+                  blog.comments.map((comment) => (
+                    <li key="comment">{comment}</li>
+                  ))}
+              </ul>
             </div>
           ) : null
         )}

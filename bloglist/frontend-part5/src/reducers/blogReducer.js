@@ -79,7 +79,11 @@ export const createBlog = (blog, token) => {
 
 export const incrementLikes = (blog, token) => {
   return async (dispatch, getState) => {
-    const newBlog = await blogService.updateBlog(blog, token);
+    const newBlog = await blogService.updateBlog(
+      { likes: blog.likes + 1 },
+      blog.id,
+      token
+    );
     await dispatch(updateBlog(newBlog));
     // order blogs by likes
     const blogs = getState().blogs;

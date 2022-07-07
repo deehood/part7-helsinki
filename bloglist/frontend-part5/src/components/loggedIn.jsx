@@ -26,7 +26,7 @@ const LoggedIn = () => {
 
   return (
     <div className="loggedGridContainer">
-      <h2 className="title"> Welcome to Blogs</h2>
+      <h2 className="title">Blog App</h2>
       <span className="logged">
         <div className="loggedUser">
           <Link to={`/users/${user.id}`}> {user.name}</Link> is logged in{" "}

@@ -44,14 +44,14 @@ blogRouter.delete("/:id", async (request, response) => {
   } else response.status(401).send({ error: "Not found" });
 });
 
-blogRouter.put("/:id", async (request, response) => {
-  const result = await Blog.findById(request.params.id).populate("user", {
+blogRouter.patch("/:id", async (request, response) => {
+  const result = await Blog.findByIdAndUpdate(request.params.id, request.body, {
+    new: true,
+  }).populate("user", {
     username: 1,
     name: 1,
   });
-  result.likes++;
 
-  await result.save();
   response.json(result);
 });
 

@@ -29,10 +29,10 @@ const createBlog = async (blog, token) => {
   return response.data;
 };
 
-const updateBlog = async (blog, token) => {
-  const response = await axios.put(
-    `${baseUrl}/${blog.id}`,
-    blog,
+const updateBlog = async (fieldsToPatch, id, token) => {
+  const response = await axios.patch(
+    `${baseUrl}/${id}`,
+    fieldsToPatch,
     config(token)
   );
   return response.data;
