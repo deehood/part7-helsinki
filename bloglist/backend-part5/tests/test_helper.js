@@ -11,9 +11,9 @@ const saltThePassword = async (password) => {
 
 const initialUsers = [
   {
-    username: "jinfo",
-    name: "James fortis",
-    password: "whatisthat",
+    username: "test",
+    name: "Simple Tester",
+    password: "test",
     blogs: [],
   },
   {
