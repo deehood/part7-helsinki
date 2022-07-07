@@ -8,8 +8,6 @@ const blogSchema = new mongoose.Schema({
   comments: [String],
 });
 
-// const Blog = mongoose.model("Blog", blogSchema);
-
 blogSchema.set("toJSON", {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
