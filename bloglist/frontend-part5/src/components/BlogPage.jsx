@@ -45,11 +45,13 @@ const BlogPage = () => {
                 added by{" "}
                 <Link to={`/users/${blog.user.id}`}> {blog.user.name}</Link>
               </p>
-              <h3>Comments</h3>
+              <h3 style={{ marginTop: "1rem" }}>Comments</h3>
               <ul>
                 {blog.comments &&
                   blog.comments.map((comment) => (
-                    <li key="comment">{comment}</li>
+                    <li key={comment} style={{ marginLeft: "1rem" }}>
+                      {comment}
+                    </li>
                   ))}
               </ul>
             </div>
