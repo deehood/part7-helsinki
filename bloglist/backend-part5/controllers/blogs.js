@@ -1,4 +1,5 @@
 const blogRouter = require("express").Router();
+const blog = require("../models/blog");
 const Blog = require("../models/blog");
 const User = require("../models/user");
 
@@ -45,6 +46,17 @@ blogRouter.delete("/:id", async (request, response) => {
 });
 
 blogRouter.patch("/:id", async (request, response) => {
+  const result = await Blog.findByIdAndUpdate(request.params.id, request.body, {
+    new: true,
+  }).populate("user", {
+    username: 1,
+    name: 1,
+  });
+
+  response.json(result);
+});
+
+blogRouter.patch("/:id/comments", async (request, response) => {
   const result = await Blog.findByIdAndUpdate(request.params.id, request.body, {
     new: true,
   }).populate("user", {

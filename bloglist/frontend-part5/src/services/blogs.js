@@ -9,6 +9,15 @@ const config = (token) => {
   };
 };
 
+const updateComments = async (fieldsToPatch, blogId, token) => {
+  const response = await axios.patch(
+    `${baseUrl}/${blogId}/comments`,
+    fieldsToPatch,
+    config(token)
+  );
+  return response.data;
+};
+
 const getAll = async (token) => {
   const response = await axios.get(baseUrl, config(token));
 
@@ -29,17 +38,17 @@ const createBlog = async (blog, token) => {
   return response.data;
 };
 
-const updateBlog = async (fieldsToPatch, id, token) => {
+const updateBlog = async (fieldsToPatch, blogId, token) => {
   const response = await axios.patch(
-    `${baseUrl}/${id}`,
+    `${baseUrl}/${blogId}`,
     fieldsToPatch,
     config(token)
   );
   return response.data;
 };
 
-const removeBlog = async (id, token) => {
-  const response = await axios.delete(`${baseUrl}/${id}`, {
+const removeBlog = async (blogId, token) => {
+  const response = await axios.delete(`${baseUrl}/${blogId}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
   return response;
@@ -51,4 +60,5 @@ export default {
   createBlog,
   updateBlog,
   removeBlog,
+  updateComments,
 };

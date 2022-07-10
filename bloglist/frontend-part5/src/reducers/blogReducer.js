@@ -33,6 +33,20 @@ export const setSelectorBlogs = () => {
   return (state) => state.blogs;
 };
 
+export const createComment = (blog, comment, token) => {
+  return async (dispatch, getState) => {
+    const newBlog = await blogService.updateComments(
+      { comments: blog.comments.concat(comment) },
+      blog.id,
+      token
+    );
+    await dispatch(updateBlog(newBlog));
+    // order blogs by likes
+    const blogs = getState().blogs;
+    dispatch(getOrderedBlogs(blogs));
+  };
+};
+
 export const getAllBlogs = (token) => {
   return async (dispatch) => {
     const blogs = await blogService.getAll(token);
