@@ -32,8 +32,9 @@ const Bloglist = () => {
   };
 
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", Width: "40rem" }}>
       <button
+        style={{ width: "5rem" }}
         id="new-post-button"
         className={newPost ? "hideButton" : "showButton"}
         onClick={() => setNewPost(true)}

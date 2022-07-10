@@ -5,11 +5,12 @@
 
 body {
   margin: 1rem;
-
+  display: flex;
+  justify-content: center;
   margin-left: 1rem;
   margin-right: 1rem;
   box-sizing: border-box;
-  background-color: #777;
+  background-color: #8aaae5;
 }
 button {
   padding: 0rem 0.2rem;
@@ -42,6 +43,7 @@ input {
 }
 
 .title {
+  font-size: xx-large;
   grid-area: title;
   justify-self: flex-start;
   align-self: center;

@@ -23,6 +23,8 @@ const Blog = ({ blog }) => {
     viewStatus === "view" ? setViewStatus("hide") : setViewStatus("view");
 
   const blogStyle = {
+    justifyContents: "center",
+
     overflow: "hidden",
     padding: 5,
     paddingRight: 10,
