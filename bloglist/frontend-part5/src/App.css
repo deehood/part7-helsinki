@@ -105,11 +105,10 @@ input {
 }
 a.blue {
   text-decoration: none;
-  color: brown;
+  color: darkblue;
 }
-a.white {
-  color: white;
-}
+
 a {
   text-decoration: none;
+  color: darkblue;
 }

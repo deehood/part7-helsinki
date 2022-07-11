@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { getAllBlogs } from "../reducers/blogReducer";
 import webUrl from "../utils/regex-weburl";
 import { createComment } from "../reducers/blogReducer";
+import { Form, Button, InputGroup, FormControl } from "react-bootstrap";
 
 const BlogPage = () => {
   // const navigate = useNavigate;
@@ -83,16 +84,31 @@ const BlogPage = () => {
                 <Link to={`/users/${blog.user.id}`}> {blog.user.name}</Link>
               </p>
               <h3 style={{ marginTop: "1rem" }}>Comments</h3>
-              <form onSubmit={handleComment}>
-                <input
-                  style={{ margin: "0.5rem 0" }}
-                  placeholder="comments..."
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                ></input>
-                <button>add comment</button>
-              </form>
 
+              <InputGroup onSubmit={handleComment}>
+                <FormControl controlId="comment">
+                  <span>
+                    <Form.Control
+                      type="text"
+                      placeholder="comments..."
+                      style={{ marginLeft: 0, maxWidth: "25rem" }}
+                      className="mb-3 mt-3 "
+                      onChange={(e) => setComment(e.target.value)}
+                    />
+                    <Button>add </Button>
+                  </span>
+                </FormControl>
+              </InputGroup>
+              <InputGroup className="mb-3">
+                <FormControl
+                  placeholder="Recipient's username"
+                  aria-label="Recipient's username"
+                  aria-describedby="basic-addon2"
+                />
+                <Button variant="outline-secondary" id="button-addon2">
+                  Button
+                </Button>
+              </InputGroup>
               <ul>
                 {blog.comments &&
                   blog.comments.map((comment, index) => (

@@ -40,10 +40,10 @@ const LoggedIn = () => {
           logout
         </Button>
       </span>
-      <b className="main">
+      <div className="main blue">
         <Link to="/">Main</Link>
-      </b>
-      <div className="users">
+      </div>
+      <div className="users white">
         <Link to="/users">{users && users.length} users</Link>
       </div>
     </div>
