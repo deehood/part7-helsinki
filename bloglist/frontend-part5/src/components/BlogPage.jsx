@@ -2,11 +2,11 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { incrementLikes, setSelectorBlogs } from "../reducers/blogReducer";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { getAllBlogs } from "../reducers/blogReducer";
 import webUrl from "../utils/regex-weburl";
 import { createComment } from "../reducers/blogReducer";
-import { Form, Button, InputGroup, FormControl } from "react-bootstrap";
+import { Button, InputGroup, Form } from "react-bootstrap";
 
 const BlogPage = () => {
   // const navigate = useNavigate;
@@ -15,6 +15,7 @@ const BlogPage = () => {
   const blogs = useSelector(setSelectorBlogs());
   const dispatch = useDispatch();
   const [comment, setComment] = useState("");
+  const inputRef = useRef(null);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
@@ -34,7 +35,7 @@ const BlogPage = () => {
         token
       )
     );
-
+    inputRef.current.value = "";
     setComment("");
   };
 
@@ -84,31 +85,25 @@ const BlogPage = () => {
                 <Link to={`/users/${blog.user.id}`}> {blog.user.name}</Link>
               </p>
               <h3 style={{ marginTop: "1rem" }}>Comments</h3>
-
-              <InputGroup onSubmit={handleComment}>
-                <FormControl controlId="comment">
-                  <span>
+              <Form onSubmit={handleComment}>
+                <Form.Group controlId="comment">
+                  <InputGroup size="sm">
                     <Form.Control
-                      type="text"
+                      ref={inputRef}
                       placeholder="comments..."
                       style={{ marginLeft: 0, maxWidth: "25rem" }}
                       className="mb-3 mt-3 "
                       onChange={(e) => setComment(e.target.value)}
                     />
-                    <Button>add </Button>
-                  </span>
-                </FormControl>
-              </InputGroup>
-              <InputGroup className="mb-3">
-                <FormControl
-                  placeholder="Recipient's username"
-                  aria-label="Recipient's username"
-                  aria-describedby="basic-addon2"
-                />
-                <Button variant="outline-secondary" id="button-addon2">
-                  Button
-                </Button>
-              </InputGroup>
+                    <Button
+                      onClick={handleComment}
+                      style={{ marginTop: "1rem", marginBottom: "1rem" }}
+                    >
+                      add
+                    </Button>
+                  </InputGroup>
+                </Form.Group>
+              </Form>
               <ul>
                 {blog.comments &&
                   blog.comments.map((comment, index) => (
