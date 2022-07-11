@@ -17,7 +17,7 @@ const FormInputBlog = ({ setNewPost, handleCreateBlog }) => {
           <Form.Label className="mt-3 ">title</Form.Label>
           <Form.Control
             type="text"
-            placeholder="username..."
+            placeholder="title..."
             style={{ maxWidth: "25rem", width: "70%" }}
             className="mb-2 "
             value={inputBlog.title}
@@ -31,7 +31,7 @@ const FormInputBlog = ({ setNewPost, handleCreateBlog }) => {
           <Form.Label>author</Form.Label>
           <Form.Control
             type="text"
-            placeholder="username..."
+            placeholder="author..."
             style={{ maxWidth: "25rem", width: "70%" }}
             className="mb-2  "
             value={inputBlog.author}
@@ -42,10 +42,10 @@ const FormInputBlog = ({ setNewPost, handleCreateBlog }) => {
           />
         </Form.Group>
         <Form.Group controlId="url">
-          <Form.Label>password</Form.Label>
+          <Form.Label>url</Form.Label>
           <Form.Control
             type="text"
-            placeholder="url.."
+            placeholder="url..."
             style={{ maxWidth: "25rem", width: "70%" }}
             className="mb-4  "
             name="url"
