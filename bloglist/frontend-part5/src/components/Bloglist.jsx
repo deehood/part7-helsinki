@@ -8,6 +8,8 @@ import {
   setSelectorBlogs,
 } from "../reducers/blogReducer";
 import { setUser } from "../reducers/userReducer";
+import { Table } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 const Bloglist = () => {
   const [newPost, setNewPost] = useState(false);
@@ -32,15 +34,16 @@ const Bloglist = () => {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", Width: "40rem" }}>
-      <button
-        style={{ width: "5rem" }}
+    <div>
+      <Button
+        // size="sm"
+        // style={{ width: "5rem" }}
         id="new-post-button"
         className={newPost ? "hideButton" : "showButton"}
         onClick={() => setNewPost(true)}
       >
         new post
-      </button>
+      </Button>
 
       {newPost && (
         <FormInputBlog
@@ -48,10 +51,15 @@ const Bloglist = () => {
           handleCreateBlog={handleCreateBlog}
         />
       )}
-
-      {blogs.map((blog) => (
-        <Blog key={blog.id} blog={blog} />
-      ))}
+      <Table striped>
+        <tbody>
+          {blogs.map((blog) => (
+            <tr key={blog.id}>
+              <Blog blog={blog} />
+            </tr>
+          ))}
+        </tbody>
+      </Table>
     </div>
   );
 };

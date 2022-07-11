@@ -73,10 +73,13 @@ input {
   grid-area: users;
 }
 .loggedGridContainer {
+  background-color: #7ea1e1;
   margin-bottom: 1rem;
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
   padding-bottom: 0.3rem;
   display: grid;
-  border-bottom: solid black;
+  /* border-bottom: solid black; */
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
 
@@ -98,7 +101,7 @@ input {
   display: flex;
 }
 a {
-  width: 12rem;
+  /* width: 12rem; */
   text-decoration: none;
   color: rgb(26, 30, 69);
 }

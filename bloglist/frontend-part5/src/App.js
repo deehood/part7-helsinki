@@ -44,22 +44,24 @@ const App = () => {
   };
 
   return (
-    <Router>
-      {!user && <h2>Log in to application</h2>}
-      <Notification />
-      {user && <LoggedIn />}
-      <Routes>
-        <Route
-          path="/"
-          element={
-            !user ? <LoginForm handleLogin={handleLogin} /> : <Bloglist />
-          }
-        />
-        <Route path="/users" element={<AllUsersPage />} />
-        <Route path="/users/:id" element={<UserPage />} />
-        <Route path="/blogs/:id" element={<BlogPage />} />
-      </Routes>
-    </Router>
+    <div className="container">
+      <Router>
+        {!user && <h2>Log in to application</h2>}
+        <Notification />
+        {user && <LoggedIn />}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              !user ? <LoginForm handleLogin={handleLogin} /> : <Bloglist />
+            }
+          />
+          <Route path="/users" element={<AllUsersPage />} />
+          <Route path="/users/:id" element={<UserPage />} />
+          <Route path="/blogs/:id" element={<BlogPage />} />
+        </Routes>
+      </Router>
+    </div>
   );
 };
 

@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { getAllUsers } from "../reducers/allUsersReducer";
+import { Button } from "react-bootstrap";
 
 const handleLogout = (navigate) => {
   navigate("/");
@@ -31,9 +32,13 @@ const LoggedIn = () => {
         <div className="loggedUser">
           <Link to={`/users/${user.id}`}> {user.name}</Link> is logged in{" "}
         </div>
-        <button id="logoutButton" onClick={() => handleLogout(navigate)}>
+        <Button
+          size="sm"
+          id="logoutButton"
+          onClick={() => handleLogout(navigate)}
+        >
           logout
-        </button>
+        </Button>
       </span>
       <b className="main">
         <Link to="/">Main</Link>

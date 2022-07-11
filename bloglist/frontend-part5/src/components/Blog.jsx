@@ -25,11 +25,10 @@ const Blog = ({ blog }) => {
   const blogStyle = {
     justifyContents: "center",
 
-    overflow: "hidden",
+    // overflow: "hidden",
     padding: 5,
     paddingRight: 10,
-    border: "solid",
-    borderWidth: 1,
+
     marginBottom: 5,
   };
 

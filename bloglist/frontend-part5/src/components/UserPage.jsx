@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { Table } from "react-bootstrap";
 
 const UserPage = () => {
   const users = useSelector((state) => state.allUsers);
@@ -14,14 +15,20 @@ const UserPage = () => {
         <p style={{ marginTop: "1rem", marginBottom: "1rem" }}>
           <b>added blogs</b>
         </p>
-        <ul>
-          {user &&
-            user.blogs.map((blog) => (
-              <li key={blog.id} style={{ marginLeft: "1rem" }}>
-                <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
-              </li>
-            ))}
-        </ul>
+        <Table>
+          <tbody>
+            <ul>
+              {user &&
+                user.blogs.map((blog) => (
+                  <tr key={blog.id}>
+                    <li style={{ marginLeft: "1rem" }}>
+                      <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+                    </li>
+                  </tr>
+                ))}
+            </ul>
+          </tbody>
+        </Table>
       </div>
     ) : null
   );

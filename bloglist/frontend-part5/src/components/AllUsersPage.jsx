@@ -1,23 +1,29 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Table } from "react-bootstrap";
 
 const AllUsersPage = () => {
   const users = useSelector((state) => state.allUsers);
 
   return (
-    <div className="usersGrid">
-      <span className="userTitle">Users</span>
-      <span className="title2">Blogs created</span>
-
-      {users &&
-        users.map((user) => (
-          <div key={user.id} className="lineWrap">
-            <Link to={`/users/${user.id}`}>
-              <span className="userName">{user.name} </span>
-            </Link>
-            <span className="blogNumber">{user.blogs.length}</span>
-          </div>
-        ))}
+    <div>
+      <Table striped>
+        <tr>
+          <th>Users</th>
+          <th> Blogs created </th>
+        </tr>
+        <tbody>
+          {users &&
+            users.map((user) => (
+              <tr key={user.id}>
+                <td>
+                  <Link to={`/users/${user.id}`}>{user.name}</Link>
+                </td>
+                <td>{user.blogs.length}</td>
+              </tr>
+            ))}
+        </tbody>
+      </Table>
     </div>
   );
 };
