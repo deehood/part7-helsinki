@@ -8,10 +8,12 @@ const AllUsersPage = () => {
   return (
     <div>
       <Table striped>
-        <tr>
-          <th>Users</th>
-          <th> Blogs created </th>
-        </tr>
+        <thead>
+          <tr>
+            <th>Users</th>
+            <th> Blogs created </th>
+          </tr>
+        </thead>
         <tbody>
           {users &&
             users.map((user) => (

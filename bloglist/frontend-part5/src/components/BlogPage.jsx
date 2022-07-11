@@ -96,9 +96,7 @@ const BlogPage = () => {
               <ul>
                 {blog.comments &&
                   blog.comments.map((comment, index) => (
-                    <li key={index + comment} style={{ marginLeft: "1rem" }}>
-                      {comment}
-                    </li>
+                    <li key={index + comment}>{comment}</li>
                   ))}
               </ul>
             </div>

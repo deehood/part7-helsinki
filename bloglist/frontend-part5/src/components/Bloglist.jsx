@@ -36,8 +36,7 @@ const Bloglist = () => {
   return (
     <div>
       <Button
-        // size="sm"
-        // style={{ width: "5rem" }}
+        size="sm"
         id="new-post-button"
         className={newPost ? "hideButton" : "showButton"}
         onClick={() => setNewPost(true)}
@@ -55,7 +54,9 @@ const Bloglist = () => {
         <tbody>
           {blogs.map((blog) => (
             <tr key={blog.id}>
-              <Blog blog={blog} />
+              <td>
+                <Blog blog={blog} />
+              </td>
             </tr>
           ))}
         </tbody>

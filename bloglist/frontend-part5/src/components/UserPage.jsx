@@ -15,20 +15,22 @@ const UserPage = () => {
         <p style={{ marginTop: "1rem", marginBottom: "1rem" }}>
           <b>added blogs</b>
         </p>
-        <Table>
-          <tbody>
-            <ul>
+        <ul>
+          <Table>
+            <tbody>
               {user &&
                 user.blogs.map((blog) => (
                   <tr key={blog.id}>
-                    <li style={{ marginLeft: "1rem" }}>
-                      <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
-                    </li>
+                    <td>
+                      <li style={{ marginLeft: "1rem" }}>
+                        <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+                      </li>
+                    </td>
                   </tr>
                 ))}
-            </ul>
-          </tbody>
-        </Table>
+            </tbody>
+          </Table>
+        </ul>
       </div>
     ) : null
   );

@@ -13,6 +13,7 @@ import UserPage from "./components/UserPage";
 import BlogPage from "./components/BlogPage";
 import { getAllBlogs } from "./reducers/blogReducer";
 import { getAllUsers } from "./reducers/allUsersReducer";
+import { Container } from "react-bootstrap";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -44,9 +45,8 @@ const App = () => {
   };
 
   return (
-    <div className="container">
+    <Container>
       <Router>
-        {!user && <h2>Log in to application</h2>}
         <Notification />
         {user && <LoggedIn />}
         <Routes>
@@ -61,7 +61,7 @@ const App = () => {
           <Route path="/blogs/:id" element={<BlogPage />} />
         </Routes>
       </Router>
-    </div>
+    </Container>
   );
 };
 
